@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('bookings', function(Blueprint $t){ $t->id(); $t->foreignId('pet_id')->constrained()->cascadeOnDelete(); $t->foreignId('room_id')->constrained()->cascadeOnDelete(); $t->date('check_in'); $t->date('check_out'); $t->enum('service_package',['Basic','Premium','Grooming Plus']); $t->enum('status',['Menunggu','Check In','Selesai','Dibatalkan'])->default('Menunggu'); $t->unsignedInteger('total_price')->default(0); $t->text('special_request')->nullable(); $t->timestamps(); }); } public function down(): void { Schema::dropIfExists('bookings'); } };
